@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pulse.io — Analytics para Criadores</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #07070F;
+    --bg2: #0E0D1A;
+    --bg3: #13112A;
+    --violet: #7C3AED;
+    --violet-light: #9B5CF6;
+    --fuchsia: #D946EF;
+    --fuchsia-light: #E879F9;
+    --text: #F8FAFC;
+    --text2: #A0A0B8;
+    --text3: #5A5A7A;
+    --border: rgba(124,58,237,0.22);
+    --border2: rgba(255,255,255,0.07);
+    --card: rgba(255,255,255,0.03);
+    --card-hover: rgba(124,58,237,0.08);
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 3rem;
+    background: rgba(7,7,15,0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border2);
+  }
+  .logo {
+    font-family: 'Sora', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--violet-light), var(--fuchsia-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.03em;
+  }
+  .logo span { font-weight: 300; opacity: 0.65; }
+  nav ul { display: flex; gap: 2.2rem; list-style: none; align-items: center; }
+  nav ul a {
+    color: var(--text2);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 400;
+    transition: color 0.2s;
+  }
+  nav ul a:hover { color: var(--text); }
+  .nav-cta {
+    background: var(--violet) !important;
+    color: #fff !important;
+    padding: 0.5rem 1.25rem !important;
+    border-radius: 8px;
+    font-weight: 500 !important;
+    transition: background 0.2s, transform 0.15s !important;
+  }
+  .nav-cta:hover { background: var(--violet-light) !important; transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 6.5rem 2rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(ellipse at center, rgba(124,58,237,0.16) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(124,58,237,0.12);
+    border: 1px solid rgba(124,58,237,0.3);
+    color: #C4B5FD;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.38rem 0.9rem;
+    border-radius: 100px;
+    margin-bottom: 2rem;
+    letter-spacing: 0.02em;
+  }
+  .badge-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--fuchsia-light);
+    border-radius: 50%;
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.35; transform: scale(0.55); }
+  }
+  .hero h1 {
+    font-family: 'Sora', sans-serif;
+    font-size: clamp(2.5rem, 5.5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.045em;
+    margin-bottom: 1.5rem;
+    max-width: 720px;
+  }
+  .hero h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, var(--violet-light) 0%, var(--fuchsia-light) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero p {
+    color: var(--text2);
+    font-size: 1.05rem;
+    max-width: 490px;
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+  }
+  .hero-actions { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; justify-content: center; }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--violet), var(--fuchsia));
+    color: #fff;
+    padding: 0.9rem 2rem;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 0 30px rgba(124,58,237,0.4);
+    text-decoration: none;
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+  }
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); box-shadow: 0 6px 40px rgba(124,58,237,0.55); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--text2);
+    padding: 0.9rem 1.5rem;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    border: 1px solid var(--border2);
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: 'Inter', sans-serif;
+  }
+  .btn-secondary:hover { color: var(--text); border-color: rgba(255,255,255,0.18); }
+  .hero-sub {
+    margin-top: 2.8rem;
+    color: var(--text3);
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+  .avatar-stack { display: flex; }
+  .avatar {
+    width: 27px;
+    height: 27px;
+    border-radius: 50%;
+    border: 2px solid var(--bg);
+    margin-left: -6px;
+    background: linear-gradient(135deg, #7C3AED, #D946EF);
+    font-size: 0.6rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+  }
+  .avatar:first-child { margin-left: 0; }
+  .avatar:nth-child(2) { background: linear-gradient(135deg, #0EA5E9, #7C3AED); }
+  .avatar:nth-child(3) { background: linear-gradient(135deg, #D946EF, #7C3AED); }
+  .avatar:nth-child(4) { background: linear-gradient(135deg, #F59E0B, #EF4444); }
+
+  /* ── DASHBOARD PREVIEW ── */
+  .orb-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 860px;
+    margin: 3.5rem auto 0;
+    padding: 2px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, rgba(124,58,237,0.45), rgba(217,70,239,0.2), transparent 60%);
+  }
+  .dashboard-preview {
+    background: var(--bg2);
+    border-radius: 20px;
+    padding: 1.75rem;
+  }
+  .dash-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.4rem;
+  }
+  .dash-left { display: flex; align-items: center; gap: 1rem; }
+  .dash-dots { display: flex; gap: 5px; }
+  .dash-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+  .dash-dot.r { background: #FF5F57; }
+  .dash-dot.y { background: #FEBC2E; }
+  .dash-dot.g { background: #28C840; }
+  .dash-title-bar { font-size: 0.75rem; color: var(--text3); font-family: 'Sora', sans-serif; }
+  .dash-live {
+    background: rgba(16,185,129,0.1);
+    border: 1px solid rgba(16,185,129,0.25);
+    color: #34D399;
+    font-size: 0.68rem;
+    padding: 0.22rem 0.65rem;
+    border-radius: 100px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .live-dot {
+    width: 5px;
+    height: 5px;
+    background: #34D399;
+    border-radius: 50%;
+    animation: pulse-dot 1.5s ease-in-out infinite;
+  }
+  .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin-bottom: 1.25rem; }
+  .stat-card {
+    background: rgba(255,255,255,0.028);
+    border: 1px solid var(--border2);
+    border-radius: 12px;
+    padding: 1rem;
+  }
+  .stat-label { font-size: 0.68rem; color: var(--text3); margin-bottom: 0.4rem; letter-spacing: 0.04em; }
+  .stat-value { font-family: 'Sora', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--text); letter-spacing: -0.03em; }
+  .stat-change { font-size: 0.65rem; color: #34D399; margin-top: 0.3rem; font-weight: 500; }
+  .chart-area {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border2);
+    border-radius: 12px;
+    height: 120px;
+    display: flex;
+    align-items: flex-end;
+    gap: 7px;
+    padding: 1rem 1.25rem 0.85rem;
+  }
+  .bar {
+    flex: 1;
+    border-radius: 4px 4px 0 0;
+  }
+
+  /* ── LOGOS ── */
+  .logos-section {
+    padding: 3rem 2rem;
+    text-align: center;
+    border-top: 1px solid var(--border2);
+    border-bottom: 1px solid var(--border2);
+  }
+  .logos-label {
+    font-size: 0.72rem;
+    color: var(--text3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.75rem;
+    font-weight: 500;
+  }
+  .logos-row { display: flex; justify-content: center; align-items: center; gap: 3.5rem; flex-wrap: wrap; }
+  .logo-pill {
+    font-family: 'Sora', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text3);
+    letter-spacing: -0.02em;
+    opacity: 0.45;
+    transition: opacity 0.25s;
+    cursor: default;
+  }
+  .logo-pill:hover { opacity: 0.8; }
+
+  /* ── SECTIONS ── */
+  .section {
+    padding: 5.5rem 3rem;
+    max-width: 1140px;
+    margin: 0 auto;
+  }
+  .section-tag {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--violet-light);
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Sora', sans-serif;
+    font-size: clamp(1.9rem, 3vw, 2.7rem);
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+    max-width: 540px;
+  }
+  .section-sub {
+    color: var(--text2);
+    font-size: 1rem;
+    max-width: 460px;
+    line-height: 1.75;
+    margin-bottom: 3.5rem;
+  }
+
+  /* ── FEATURES ── */
+  .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .feature-card {
+    background: var(--card);
+    border: 1px solid var(--border2);
+    border-radius: 18px;
+    padding: 1.85rem;
+    transition: background 0.25s, border-color 0.25s, transform 0.2s;
+    cursor: default;
+  }
+  .feature-card:hover { background: var(--card-hover); border-color: var(--border); transform: translateY(-4px); }
+  .feature-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.1rem;
+    font-size: 1.2rem;
+  }
+  .feature-icon.v { background: rgba(124,58,237,0.14); }
+  .feature-icon.f { background: rgba(217,70,239,0.1); }
+  .feature-icon.g { background: rgba(16,185,129,0.1); }
+  .feature-title { font-family: 'Sora', sans-serif; font-size: 0.95rem; font-weight: 700; margin-bottom: 0.55rem; }
+  .feature-desc { font-size: 0.84rem; color: var(--text2); line-height: 1.68; }
+
+  /* ── HOW IT WORKS ── */
+  .steps-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4.5rem;
+    align-items: center;
+  }
+  .steps-list { display: flex; flex-direction: column; }
+  .step {
+    display: flex;
+    gap: 1.25rem;
+    padding: 1.6rem 0;
+    border-bottom: 1px solid var(--border2);
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    font-family: 'Sora', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--violet-light);
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: rgba(124,58,237,0.1);
+    border: 1px solid rgba(124,58,237,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .step-content h4 { font-family: 'Sora', sans-serif; font-size: 0.92rem; font-weight: 700; margin-bottom: 0.35rem; }
+  .step-content p { font-size: 0.84rem; color: var(--text2); line-height: 1.65; }
+  .steps-visual {
+    background: var(--bg2);
+    border: 1px solid rgba(124,58,237,0.2);
+    border-radius: 22px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .steps-visual::after {
+    content: '';
+    position: absolute;
+    bottom: -60px;
+    right: -60px;
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle, rgba(217,70,239,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .mini-feed-label { font-size: 0.68rem; color: var(--text3); margin-bottom: 1rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; }
+  .mini-feed { display: flex; flex-direction: column; gap: 0.65rem; }
+  .feed-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border2);
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    font-size: 0.79rem;
+    transition: background 0.2s;
+  }
+  .feed-item:hover { background: rgba(124,58,237,0.06); }
+  .feed-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .feed-dot.v { background: var(--violet-light); }
+  .feed-dot.f { background: var(--fuchsia-light); }
+  .feed-dot.g { background: #34D399; }
+  .feed-dot.a { background: #FBBF24; }
+  .feed-text { color: var(--text2); flex: 1; }
+  .feed-val { font-family: 'Sora', sans-serif; font-weight: 700; color: var(--text); font-size: 0.82rem; }
+
+  /* ── PRICING ── */
+  .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 0; }
+  .price-card {
+    background: var(--card);
+    border: 1px solid var(--border2);
+    border-radius: 22px;
+    padding: 2.2rem;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+  .price-card:hover { border-color: rgba(124,58,237,0.25); }
+  .price-card.featured {
+    background: rgba(124,58,237,0.06);
+    border-color: rgba(124,58,237,0.4);
+  }
+  .price-card.featured:hover { border-color: rgba(124,58,237,0.6); }
+  .popular-tag {
+    position: absolute;
+    top: -13px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--violet), var(--fuchsia));
+    color: #fff;
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 0.28rem 1rem;
+    border-radius: 100px;
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+  }
+  .price-tier { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text3); margin-bottom: 1rem; }
+  .price-amount {
+    font-family: 'Sora', sans-serif;
+    font-size: 2.7rem;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    margin-bottom: 0.3rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 2px;
+  }
+  .price-amount sup { font-size: 1rem; margin-top: 0.7rem; font-weight: 600; }
+  .price-amount .period { font-size: 0.9rem; font-weight: 400; color: var(--text3); align-self: flex-end; margin-bottom: 0.4rem; }
+  .price-contact { font-family: 'Sora', sans-serif; font-size: 1.5rem; font-weight: 800; margin-bottom: 0.3rem; }
+  .price-desc { font-size: 0.83rem; color: var(--text2); margin-bottom: 1.75rem; line-height: 1.6; min-height: 3.5rem; }
+  .price-divider { height: 1px; background: var(--border2); margin-bottom: 1.5rem; }
+  .price-features { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; margin-bottom: 2rem; }
+  .price-features li {
+    font-size: 0.84rem;
+    color: var(--text2);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+  }
+  .check { color: var(--violet-light); font-size: 0.8rem; flex-shrink: 0; margin-top: 1px; font-weight: 700; }
+  .btn-plan {
+    width: 100%;
+    padding: 0.85rem;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .btn-plan.outline {
+    background: transparent;
+    border: 1px solid var(--border2);
+    color: var(--text2);
+  }
+  .btn-plan.outline:hover { border-color: var(--violet); color: var(--text); background: rgba(124,58,237,0.06); }
+  .btn-plan.solid {
+    background: linear-gradient(135deg, var(--violet), var(--fuchsia));
+    color: #fff;
+    border: none;
+    box-shadow: 0 0 24px rgba(124,58,237,0.35);
+  }
+  .btn-plan.solid:hover { opacity: 0.9; box-shadow: 0 4px 32px rgba(124,58,237,0.55); }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .test-card {
+    background: var(--card);
+    border: 1px solid var(--border2);
+    border-radius: 18px;
+    padding: 1.65rem;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .test-card:hover { border-color: var(--border); background: rgba(124,58,237,0.04); }
+  .stars { color: var(--fuchsia-light); font-size: 0.82rem; margin-bottom: 0.85rem; letter-spacing: 2px; }
+  .test-text { font-size: 0.87rem; color: var(--text2); line-height: 1.72; margin-bottom: 1.3rem; font-style: italic; }
+  .test-author { display: flex; align-items: center; gap: 0.7rem; }
+  .test-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .test-name { font-family: 'Sora', sans-serif; font-size: 0.83rem; font-weight: 700; }
+  .test-role { font-size: 0.72rem; color: var(--text3); margin-top: 1px; }
+
+  /* ── STATS STRIP ── */
+  .stats-strip {
+    border-top: 1px solid var(--border2);
+    border-bottom: 1px solid var(--border2);
+    padding: 3rem 2rem;
+  }
+  .stats-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    text-align: center;
+  }
+  .stat-big-val {
+    font-family: 'Sora', sans-serif;
+    font-size: 2.4rem;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    background: linear-gradient(135deg, var(--violet-light), var(--fuchsia-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .stat-big-label { font-size: 0.82rem; color: var(--text3); margin-top: 0.3rem; }
+
+  /* ── CTA ── */
+  .cta-section {
+    padding: 7rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(124,58,237,0.14) 0%, transparent 58%);
+    pointer-events: none;
+  }
+  .cta-box {
+    max-width: 620px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .cta-box h2 {
+    font-family: 'Sora', sans-serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    margin-bottom: 1.1rem;
+    line-height: 1.12;
+  }
+  .cta-box p { color: var(--text2); font-size: 1.02rem; margin-bottom: 2.25rem; line-height: 1.72; }
+  .cta-input-row {
+    display: flex;
+    gap: 0.5rem;
+    max-width: 440px;
+    margin: 0 auto 1rem;
+  }
+  .cta-input {
+    flex: 1;
+    background: rgba(255,255,255,0.055);
+    border: 1px solid var(--border2);
+    border-radius: 10px;
+    padding: 0.85rem 1.1rem;
+    color: var(--text);
+    font-size: 0.9rem;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .cta-input:focus { border-color: var(--violet); background: rgba(124,58,237,0.06); }
+  .cta-input::placeholder { color: var(--text3); }
+  .cta-note { font-size: 0.75rem; color: var(--text3); }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border2);
+    padding: 2.75rem 3rem;
+  }
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+  .footer-brand { max-width: 260px; }
+  .footer-logo {
+    font-family: 'Sora', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--violet-light), var(--fuchsia-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.6rem;
+  }
+  .footer-tagline { font-size: 0.82rem; color: var(--text3); line-height: 1.6; }
+  .footer-cols { display: flex; gap: 3.5rem; }
+  .footer-col h5 { font-family: 'Sora', sans-serif; font-size: 0.78rem; font-weight: 700; color: var(--text2); margin-bottom: 1rem; letter-spacing: 0.04em; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+  .footer-col ul a { font-size: 0.82rem; color: var(--text3); text-decoration: none; transition: color 0.2s; }
+  .footer-col ul a:hover { color: var(--text2); }
+  .footer-bottom {
+    border-top: 1px solid var(--border2);
+    padding-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .footer-copy { font-size: 0.75rem; color: var(--text3); }
+  .footer-legal { display: flex; gap: 1.5rem; }
+  .footer-legal a { font-size: 0.75rem; color: var(--text3); text-decoration: none; transition: color 0.2s; }
+  .footer-legal a:hover { color: var(--text2); }
+</style>
+</head>
+<body>
+
+<!-- ════════ NAV ════════ -->
+<nav>
+  <div class="logo">Pulse<span>.io</span></div>
+  <ul>
+    <li><a href="#features">Recursos</a></li>
+    <li><a href="#how">Como funciona</a></li>
+    <li><a href="#pricing">Preços</a></li>
+    <li><a href="#cta" class="nav-cta">Começar grátis</a></li>
+  </ul>
+</nav>
+
+<!-- ════════ HERO ════════ -->
+<section class="hero">
+  <div class="badge">
+    <div class="badge-dot"></div>
+    Analytics para criadores de conteúdo
+  </div>
+  <h1>Entenda seus dados.<br><em>Cresça sem achismos.</em></h1>
+  <p>Pulse consolida todos os seus canais em um painel único, mostra o que realmente funciona e sugere o próximo passo — automaticamente.</p>
+  <div class="hero-actions">
+    <a href="#cta" class="btn-primary">Começar grátis por 14 dias →</a>
+    <a href="#how" class="btn-secondary">▶ Ver demo</a>
+  </div>
+  <div class="hero-sub">
+    <div class="avatar-stack">
+      <div class="avatar">MF</div>
+      <div class="avatar">JL</div>
+      <div class="avatar">AR</div>
+      <div class="avatar">CB</div>
+    </div>
+    &nbsp;Mais de 4.200 criadores já usam o Pulse
+  </div>
+
+  <div class="orb-wrap">
+    <div class="dashboard-preview">
+      <div class="dash-topbar">
+        <div class="dash-left">
+          <div class="dash-dots">
+            <div class="dash-dot r"></div>
+            <div class="dash-dot y"></div>
+            <div class="dash-dot g"></div>
+          </div>
+          <div class="dash-title-bar">Pulse.io — Painel · Julho 2025</div>
+        </div>
+        <div class="dash-live"><div class="live-dot"></div> Ao vivo</div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="stat-label">Alcance total</div>
+          <div class="stat-value">284K</div>
+          <div class="stat-change">↑ 18% esta semana</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Engajamento</div>
+          <div class="stat-value">6,4%</div>
+          <div class="stat-change">↑ 2,1 pp vs mês</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Receita estimada</div>
+          <div class="stat-value">R$12,9K</div>
+          <div class="stat-change">↑ 34% vs mai</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Melhor canal</div>
+          <div class="stat-value">YouTube</div>
+          <div class="stat-change">↑ 22K views/dia</div>
+        </div>
+      </div>
+      <div class="chart-area">
+        <div class="bar" style="height:38%; background:rgba(124,58,237,0.28)"></div>
+        <div class="bar" style="height:52%; background:rgba(124,58,237,0.32)"></div>
+        <div class="bar" style="height:44%; background:rgba(124,58,237,0.28)"></div>
+        <div class="bar" style="height:68%; background:rgba(124,58,237,0.38)"></div>
+        <div class="bar" style="height:58%; background:rgba(124,58,237,0.35)"></div>
+        <div class="bar" style="height:78%; background:rgba(124,58,237,0.42)"></div>
+        <div class="bar" style="height:62%; background:rgba(124,58,237,0.38)"></div>
+        <div class="bar" style="height:88%; background:linear-gradient(to top,#7C3AED,#D946EF)"></div>
+        <div class="bar" style="height:72%; background:rgba(217,70,239,0.38)"></div>
+        <div class="bar" style="height:82%; background:rgba(217,70,239,0.42)"></div>
+        <div class="bar" style="height:96%; background:linear-gradient(to top,#7C3AED,#D946EF);box-shadow:0 0 16px rgba(217,70,239,0.5)"></div>
+        <div class="bar" style="height:76%; background:rgba(124,58,237,0.48)"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ LOGOS ════════ -->
+<div class="logos-section">
+  <div class="logos-label">Criadores de plataformas como</div>
+  <div class="logos-row">
+    <div class="logo-pill">YouTube</div>
+    <div class="logo-pill">Instagram</div>
+    <div class="logo-pill">TikTok</div>
+    <div class="logo-pill">Substack</div>
+    <div class="logo-pill">Spotify</div>
+    <div class="logo-pill">Twitch</div>
+  </div>
+</div>
+
+<!-- ════════ FEATURES ════════ -->
+<section class="section" id="features">
+  <div class="section-tag">Recursos</div>
+  <div class="section-title">Tudo que você precisa para crescer com dados</div>
+  <div class="section-sub">Nada de planilhas. Nada de abas abertas. O Pulse faz o trabalho de conectar, interpretar e recomendar.</div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon v">📊</div>
+      <div class="feature-title">Painel unificado</div>
+      <div class="feature-desc">Todos os seus canais em um único lugar. YouTube, Instagram, TikTok, Substack e mais — consolidados em tempo real.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon f">⚡</div>
+      <div class="feature-title">Insights com IA</div>
+      <div class="feature-desc">O Pulse analisa padrões e entrega recomendações práticas: melhor horário para postar, formatos que engajam, temas que performam.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon g">🎯</div>
+      <div class="feature-title">Rastreamento de metas</div>
+      <div class="feature-desc">Defina objetivos de crescimento e acompanhe em tempo real. Alertas automáticos quando você se aproxima ou supera a meta.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon f">🔔</div>
+      <div class="feature-title">Alertas inteligentes</div>
+      <div class="feature-desc">Notificações quando um conteúdo viraliza, quando um canal cai ou quando uma oportunidade aparece — antes da concorrência.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon v">📈</div>
+      <div class="feature-title">Relatórios automáticos</div>
+      <div class="feature-desc">Relatórios semanais e mensais prontos para enviar a patrocinadores, com design limpo e dados que impressionam.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon g">🔗</div>
+      <div class="feature-title">+40 integrações</div>
+      <div class="feature-desc">Conecte em segundos com APIs oficiais. Sem tokens manuais, sem configuração técnica — só autorizar e começar a ver os dados.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ HOW IT WORKS ════════ -->
+<section class="section" id="how" style="padding-top: 0;">
+  <div class="section-tag">Como funciona</div>
+  <div class="section-title">Do cadastro ao insight em minutos</div>
+  <div class="section-sub">Sem curva de aprendizado. Você conecta suas contas e o Pulse começa a trabalhar imediatamente.</div>
+  <div class="steps-wrap">
+    <div class="steps-list">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h4>Conecte seus canais</h4>
+          <p>Autorize as plataformas com um clique. Sem copiar tokens, sem configuração técnica. O Pulse cuida de tudo.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h4>Seus dados aparecem ao vivo</h4>
+          <p>Em minutos, todo o histórico e os dados em tempo real estão disponíveis no seu painel unificado.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h4>A IA analisa e recomenda</h4>
+          <p>O Pulse cruza padrões entre canais e entrega recomendações práticas: o que postar, quando e em qual formato.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <h4>Você cresce com base em dados</h4>
+          <p>Acompanhe o impacto de cada decisão, ajuste a estratégia e veja os resultados semana a semana.</p>
+        </div>
+      </div>
+    </div>
+    <div class="steps-visual">
+      <div class="mini-feed-label">Feed de atividade</div>
+      <div class="mini-feed">
+        <div class="feed-item">
+          <div class="feed-dot g"></div>
+          <div class="feed-text">Novo vídeo no YouTube</div>
+          <div class="feed-val">+4,2K views</div>
+        </div>
+        <div class="feed-item">
+          <div class="feed-dot f"></div>
+          <div class="feed-text">Reels viralizou no Instagram</div>
+          <div class="feed-val">+18K alcance</div>
+        </div>
+        <div class="feed-item">
+          <div class="feed-dot v"></div>
+          <div class="feed-text">Newsletter enviada</div>
+          <div class="feed-val">64% abertura</div>
+        </div>
+        <div class="feed-item">
+          <div class="feed-dot a"></div>
+          <div class="feed-text">Meta semanal atingida</div>
+          <div class="feed-val">🎯 100%</div>
+        </div>
+        <div class="feed-item">
+          <div class="feed-dot g"></div>
+          <div class="feed-text">TikTok: pico de seguidores</div>
+          <div class="feed-val">+2.100</div>
+        </div>
+        <div class="feed-item">
+          <div class="feed-dot v"></div>
+          <div class="feed-text">Relatório gerado e enviado</div>
+          <div class="feed-val">✓ Pronto</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ STATS STRIP ════════ -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div>
+      <div class="stat-big-val">4.200+</div>
+      <div class="stat-big-label">criadores ativos</div>
+    </div>
+    <div>
+      <div class="stat-big-val">40+</div>
+      <div class="stat-big-label">plataformas integradas</div>
+    </div>
+    <div>
+      <div class="stat-big-val">2min</div>
+      <div class="stat-big-label">para o primeiro insight</div>
+    </div>
+    <div>
+      <div class="stat-big-val">98%</div>
+      <div class="stat-big-label">satisfação dos usuários</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ PRICING ════════ -->
+<section class="section" id="pricing">
+  <div class="section-tag">Preços</div>
+  <div class="section-title">Simples. Transparente. Sem surpresas.</div>
+  <div class="section-sub">Comece grátis. Escale quando fizer sentido. Cancele quando quiser.</div>
+  <div class="pricing-grid">
+
+    <div class="price-card">
+      <div class="price-tier">Gratuito</div>
+      <div class="price-amount"><sup>R$</sup>0</div>
+      <div class="price-desc">Para quem está começando e quer entender o potencial da plataforma.</div>
+      <div class="price-divider"></div>
+      <ul class="price-features">
+        <li><span class="check">✓</span> 2 canais conectados</li>
+        <li><span class="check">✓</span> Painel básico de métricas</li>
+        <li><span class="check">✓</span> Histórico de 30 dias</li>
+        <li><span class="check">✓</span> 1 relatório por mês</li>
+      </ul>
+      <button class="btn-plan outline">Começar grátis</button>
+    </div>
+
+    <div class="price-card featured">
+      <div class="popular-tag">Mais popular</div>
+      <div class="price-tier">Pro</div>
+      <div class="price-amount"><sup>R$</sup>79<span class="period">/mês</span></div>
+      <div class="price-desc">Para criadores sérios que querem crescer com consistência e dados reais.</div>
+      <div class="price-divider"></div>
+      <ul class="price-features">
+        <li><span class="check">✓</span> Canais ilimitados</li>
+        <li><span class="check">✓</span> Insights com IA incluídos</li>
+        <li><span class="check">✓</span> Histórico completo</li>
+        <li><span class="check">✓</span> Relatórios automáticos semanais</li>
+        <li><span class="check">✓</span> Alertas em tempo real</li>
+        <li><span class="check">✓</span> Suporte prioritário</li>
+      </ul>
+      <button class="btn-plan solid">Assinar o Pro</button>
+    </div>
+
+    <div class="price-card">
+      <div class="price-tier">Agências</div>
+      <div class="price-contact">Sob consulta</div>
+      <div class="price-desc">Para agências que gerenciam múltiplos criadores e precisam de visão consolidada.</div>
+      <div class="price-divider"></div>
+      <ul class="price-features">
+        <li><span class="check">✓</span> Multi-conta gerenciada</li>
+        <li><span class="check">✓</span> Painel consolidado de clientes</li>
+        <li><span class="check">✓</span> API de dados</li>
+        <li><span class="check">✓</span> SLA e onboarding dedicado</li>
+        <li><span class="check">✓</span> White-label de relatórios</li>
+      </ul>
+      <button class="btn-plan outline">Falar com vendas</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════ TESTIMONIALS ════════ -->
+<section class="section" style="padding-top: 0;">
+  <div class="section-tag">Depoimentos</div>
+  <div class="section-title">Criadores reais. Resultados reais.</div>
+  <div class="section-sub" style="margin-bottom: 2.5rem;">O Pulse já ajudou milhares de criadores a tomar decisões mais inteligentes.</div>
+  <div class="testimonials-grid">
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <div class="test-text">"Em duas semanas entendi quais vídeos geravam mais inscritos de verdade. Dobrei meu canal em três meses usando o Pulse."</div>
+      <div class="test-author">
+        <div class="test-avatar" style="background: linear-gradient(135deg, #7C3AED, #D946EF);">MF</div>
+        <div>
+          <div class="test-name">Marina Ferreira</div>
+          <div class="test-role">Criadora de conteúdo · 820K seguidores</div>
+        </div>
+      </div>
+    </div>
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <div class="test-text">"Mandei o relatório automático para um patrocinador e ele fechou o contrato no mesmo dia. O Pulse me faz parecer profissional."</div>
+      <div class="test-author">
+        <div class="test-avatar" style="background: linear-gradient(135deg, #0EA5E9, #7C3AED);">RL</div>
+        <div>
+          <div class="test-name">Rafael Lima</div>
+          <div class="test-role">Podcaster · 200K ouvintes mensais</div>
+        </div>
+      </div>
+    </div>
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <div class="test-text">"Gerencio 14 criadores e o Pulse virou o centro da minha operação. A visão consolidada mudou completamente como trabalho."</div>
+      <div class="test-author">
+        <div class="test-avatar" style="background: linear-gradient(135deg, #D946EF, #F59E0B);">CB</div>
+        <div>
+          <div class="test-name">Carla Braga</div>
+          <div class="test-role">Fundadora · Agência Orbit</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ CTA ════════ -->
+<section class="cta-section" id="cta">
+  <div class="cta-box">
+    <h2>Pronto para entender<br><em style="background: linear-gradient(135deg, #9B5CF6, #E879F9); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-style: normal;">o que move seu canal?</em></h2>
+    <p>14 dias grátis. Sem cartão de crédito. Conecte seus canais em menos de 2 minutos e veja seus primeiros insights hoje.</p>
+    <div class="cta-input-row">
+      <input type="email" class="cta-input" placeholder="seu@email.com">
+      <button class="btn-primary" style="white-space: nowrap; padding: 0.85rem 1.6rem;">Começar →</button>
+    </div>
+    <div class="cta-note">Sem compromisso. Cancele quando quiser.</div>
+  </div>
+</section>
+
+<!-- ════════ FOOTER ════════ -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo">Pulse.io</div>
+      <div class="footer-tagline">Analytics inteligente para criadores que levam o crescimento a sério.</div>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h5>Produto</h5>
+        <ul>
+          <li><a href="#">Recursos</a></li>
+          <li><a href="#">Preços</a></li>
+          <li><a href="#">Changelog</a></li>
+          <li><a href="#">Roadmap</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Empresa</h5>
+        <ul>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Sobre nós</a></li>
+          <li><a href="#">Carreiras</a></li>
+          <li><a href="#">Contato</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Desenvolvedores</h5>
+        <ul>
+          <li><a href="#">API Docs</a></li>
+          <li><a href="#">Status</a></li>
+          <li><a href="#">Integrações</a></li>
+          <li><a href="#">Webhooks</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 Pulse Technologies · Feito para criadores</div>
+    <div class="footer-legal">
+      <a href="#">Privacidade</a>
+      <a href="#">Termos de uso</a>
+      <a href="#">Cookies</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
